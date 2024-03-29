@@ -1,6 +1,6 @@
-import { pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
-export const userTable = pgTable('users', {
+export const userTable = sqliteTable('user', {
 	id: text('id').notNull().primaryKey(),
 	provider: text('provider').notNull().default('email'),
 	providerId: text('provider_id').notNull().default(''),
@@ -8,29 +8,24 @@ export const userTable = pgTable('users', {
 	firstName: text('first_name').notNull(),
 	lastName: text('last_name').notNull(),
 	role: text('role').notNull().default('USER'),
-	verified: boolean('verified').notNull().default(false),
-	receiveEmail: boolean('receive_email').notNull().default(true),
+	verified: integer('verified', { mode: 'boolean' }).notNull().default(false),
+	receiveEmail: integer('receive_email', { mode: 'boolean' }).notNull().default(true),
 	password: text('password'),
 	token: text('token').unique(),
-	createdAt: timestamp('created_at', {
-		withTimezone: true,
-		mode: 'date'
+	createdAt: integer('created_at', {
+		mode: 'timestamp'
 	}).notNull(),
-	updatedAt: timestamp('updated_at', {
-		withTimezone: true,
-		mode: 'date'
+	updatedAt: integer('updated_at', {
+		mode: 'timestamp'
 	}).notNull()
 });
 
-export const sessionTable = pgTable('sessions', {
+export const sessionTable = sqliteTable('session', {
 	id: text('id').notNull().primaryKey(),
 	userId: text('user_id')
 		.notNull()
 		.references(() => userTable.id),
-	expiresAt: timestamp('expires_at', {
-		withTimezone: true,
-		mode: 'date'
-	}).notNull()
+	expiresAt: integer('expires_at').notNull()
 });
 
 export type User = typeof userTable.$inferInsert;

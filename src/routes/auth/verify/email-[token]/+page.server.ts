@@ -1,9 +1,9 @@
 import { getUserByToken, updateUser } from '$lib/server/database/user-model.js';
-import { fail } from '@sveltejs/kit';
+import { fail, type ServerLoad } from '@sveltejs/kit';
 import { sendWelcomeEmail } from '$lib/config/email-messages';
-import type { User } from '$lib/server/database/drizzle-schemas';
+import type { User } from '$lib/server/database';
 
-export async function load({ params }) {
+export const load: ServerLoad = async ({ params }) => {
 	try {
 		const token = params.token as string;
 		const user: User | null = await getUserByToken(token);
@@ -27,4 +27,4 @@ export async function load({ params }) {
 	} catch (e) {
 		return fail(500, { error: e });
 	}
-}
+};
