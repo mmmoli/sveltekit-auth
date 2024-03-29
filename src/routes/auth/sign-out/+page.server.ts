@@ -1,5 +1,5 @@
 import { redirect } from 'sveltekit-flash-message/server';
-import { lucia } from '$lib/server/lucia';
+import { lucia } from '$lib/server/auth';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -24,7 +24,7 @@ export const actions = {
 
 //toast also doesn't work this way.
 /*
-import { auth } from '$lib/server/lucia';
+import { auth } from '$lib/server/auth';
 import { setFlash } from 'sveltekit-flash-message/server';
 import { redirect } from '@sveltejs/kit';
 export const actions = {
@@ -33,12 +33,12 @@ export const actions = {
 		if (!session) {
 			redirect(302, '/auth/sign-in');
 		}
-		
+
 		await auth.invalidateSession(session.sessionId); // invalidate session
 		event.locals.auth.setSession(null); // remove cookie
 		setFlash({ type: 'success', message: 'Logged out' }, event);
 		redirect(302, '/auth/sign-in');
-		
+
 	}
 };
 */

@@ -1,4 +1,3 @@
-// lib/server/lucia.ts
 import { Lucia, TimeSpan } from 'lucia';
 import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { userTable, sessionTable } from '$lib/server/database/drizzle-schemas';

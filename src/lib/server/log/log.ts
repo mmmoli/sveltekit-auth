@@ -8,9 +8,8 @@ import { DOMAIN } from '$lib/config/constants';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-export default async function log(statusCode: number, event) {
+export async function log(statusCode: number, event) {
 	try {
-
 		let level = 'info';
 		if (statusCode >= 400) {
 			level = 'error';

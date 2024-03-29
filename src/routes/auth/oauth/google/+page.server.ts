@@ -1,9 +1,8 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect, type ServerLoad } from '@sveltejs/kit';
 import { generateState, generateCodeVerifier } from 'arctic';
-import { googleOauth } from '$lib/server/lucia';
+import { googleOauth } from '$lib/server/auth';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const load = async (event) => {
+export const load: ServerLoad = async (event) => {
 	if (event.locals.user) {
 		redirect(302, '/dashboard');
 	}
