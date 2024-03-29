@@ -1,8 +1,9 @@
-import { redirect, type ServerLoad } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { generateState, generateCodeVerifier } from 'arctic';
 import { googleOauth } from '$lib/server/auth';
+import type { PageServerLoad } from '../../oauth/google/$types';
 
-export const load: ServerLoad = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		redirect(302, '/dashboard');
 	}

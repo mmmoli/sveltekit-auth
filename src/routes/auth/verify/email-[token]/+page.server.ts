@@ -1,9 +1,10 @@
 import { getUserByToken, updateUser } from '$lib/server/database/user-model.js';
-import { fail, type ServerLoad } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { sendWelcomeEmail } from '$lib/config/email-messages';
 import type { User } from '$lib/server/database';
+import type { PageServerLoad } from '../email-[token]/$types';
 
-export const load: ServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	try {
 		const token = params.token as string;
 		const user: User | null = await getUserByToken(token);

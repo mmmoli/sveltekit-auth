@@ -1,9 +1,10 @@
-import { redirect, type ServerLoad } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { getUserByEmail, createUser } from '$lib/server/database/user-model.js';
 import { googleOauth, lucia } from '$lib/server/auth';
 import { OAuth2RequestError } from 'arctic';
 import { sendVerificationEmail } from '$lib/config/email-messages';
 import { setFlash } from 'sveltekit-flash-message/server';
+import type { PageServerLoad } from '../../google/callback/$types';
 
 type GoogleUser = {
 	sub: string;
@@ -16,7 +17,7 @@ type GoogleUser = {
 	locale: string;
 };
 
-export const load: ServerLoad = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		redirect(302, '/dashboard');
 	}

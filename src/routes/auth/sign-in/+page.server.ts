@@ -5,13 +5,14 @@ import { lucia } from '$lib/server/auth';
 import { Argon2id } from 'oslo/password';
 import { userSchema } from '$lib/config/zod-schemas';
 import { getUserByEmail } from '$lib/server/database/user-model';
+import type { PageServerLoad, Actions } from '../sign-in/$types';
 
 const signInSchema = userSchema.pick({
 	email: true,
 	password: true
 });
 
-export const load = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		redirect(302, '/dashboard');
 	}
@@ -21,7 +22,7 @@ export const load = async (event) => {
 	};
 };
 
-export const actions = {
+export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, signInSchema);
 		//console.log(form);

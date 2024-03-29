@@ -1,5 +1,6 @@
-import { redirect, type ServerLoad } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from '../email/$types';
 
-export const load: ServerLoad = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	if (!event.locals.user) redirect(302, '/auth/sign-in');
 };

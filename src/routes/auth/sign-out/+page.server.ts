@@ -1,11 +1,11 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import { lucia } from '$lib/server/auth';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from '../sign-up/$types';
 
 export const load: PageServerLoad = async () => {
 	// ...
 };
-export const actions = {
+export const actions: Actions = {
 	default: async (event) => {
 		if (!event.locals.user) redirect(302, '/auth/sign-in');
 		if (event.locals.session) {

@@ -1,4 +1,5 @@
 import { loadFlash } from 'sveltekit-flash-message/server';
-export const load = loadFlash(async (event) => {
-    return { user: event.locals.user };
+import type { LayoutServerLoad } from './$types';
+export const load: LayoutServerLoad = loadFlash(async (event) => {
+	return { user: event.locals.user };
 });

@@ -4,6 +4,7 @@ import { setError, superValidate } from 'sveltekit-superforms/server';
 import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/server/auth';
 import { createUser } from '$lib/server/database/user-model';
+import type { PageServerLoad, Actions } from '../sign-up/$types';
 
 import { userSchema } from '$lib/config/zod-schemas';
 import { sendVerificationEmail } from '$lib/config/email-messages';
@@ -16,7 +17,7 @@ const signUpSchema = userSchema.pick({
 	terms: true
 });
 
-export const load = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	if (event.locals.user) {
 		redirect(302, '/dashboard');
 	}
@@ -26,7 +27,7 @@ export const load = async (event) => {
 	};
 };
 
-export const actions = {
+export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, signUpSchema);
 		//console.log(form);

@@ -1,8 +1,9 @@
 import { fail } from '@sveltejs/kit';
 import { sendVerificationEmail } from '$lib/config/email-messages';
 import { getUserByEmail, updateUser } from '$lib/server/database/user-model';
+import type { PageServerLoad } from '../resend-email-[email]/$types';
 
-export async function load({ params }) {
+export const load: PageServerLoad = async ({ params }) => {
 	try {
 		const email = decodeURIComponent(params.email) as string;
 
@@ -26,4 +27,4 @@ export async function load({ params }) {
 			error: e
 		});
 	}
-}
+};
