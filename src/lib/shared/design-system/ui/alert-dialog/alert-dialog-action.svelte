@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { AlertDialog as AlertDialogPrimitive } from "bits-ui";
-	import { buttonVariants } from "~ui/button";
-	import { cn } from "~ui/utils";
+	import { AlertDialog as AlertDialogPrimitive } from 'bits-ui';
+	import { buttonVariants } from '~ui/button';
+	import { cn } from '~ui/utils';
 
 	type $$Props = AlertDialogPrimitive.ActionProps;
 	type $$Events = AlertDialogPrimitive.ActionEvents;
 
-	let className: $$Props["class"] = undefined;
+	let className: $$Props['class'] = undefined;
 	export { className as class };
 </script>
 

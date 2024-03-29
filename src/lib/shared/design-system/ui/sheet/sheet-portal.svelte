@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Dialog as SheetPrimitive } from "bits-ui";
-	import { cn } from "~ui/utils";
+	import { Dialog as SheetPrimitive } from 'bits-ui';
+	import { cn } from '~ui/utils';
 
 	type $$Props = SheetPrimitive.PortalProps;
 
-	let className: $$Props["class"] = undefined;
+	let className: $$Props['class'] = undefined;
 	export { className as class };
 </script>
 
