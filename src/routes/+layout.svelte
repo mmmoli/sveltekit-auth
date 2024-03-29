@@ -4,9 +4,9 @@
 	import { page } from '$app/stores';
 	import { ModeWatcher } from 'mode-watcher';
 	import { getFlash } from 'sveltekit-flash-message';
-	import { Toaster } from '$lib/components/ui/sonner';
+	import { Toaster } from '~ui/sonner';
 	import { toast } from 'svelte-sonner';
-	import Navigation from '$lib/components/navigation/navigation.svelte';
+	import { Masthead } from '~widgets/masthead';
 
 	export let data: any;
 	let user: PageData['user'];
@@ -30,7 +30,7 @@
 <ModeWatcher />
 <Toaster richColors />
 <div class="relative flex min-h-screen flex-col">
-	<Navigation {user} />
+	<Masthead {user} />
 	<div class="mt-8 md:mt-12">
 		<slot />
 	</div>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as Form from '$lib/components/ui/form';
-	import * as Card from '$lib/components/ui/card';
-	import * as Alert from '$lib/components/ui/alert';
+	import * as Form from '~ui/form';
+	import * as Card from '~ui/card';
+	import * as Alert from '~ui/alert';
 	import { userUpdatePasswordSchema } from '$lib/config/zod-schemas';
 	import type { SuperValidated } from 'sveltekit-superforms';
 	import { Loader2 } from 'lucide-svelte';
