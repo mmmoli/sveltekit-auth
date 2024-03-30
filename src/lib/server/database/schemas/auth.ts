@@ -14,10 +14,14 @@ export const userTable = sqliteTable('user', {
 	token: text('token').unique(),
 	createdAt: integer('created_at', {
 		mode: 'timestamp'
-	}).notNull(),
+	})
+		.notNull()
+		.default(new Date()),
 	updatedAt: integer('updated_at', {
 		mode: 'timestamp'
-	}).notNull()
+	})
+		.notNull()
+		.default(new Date())
 });
 
 export const sessionTable = sqliteTable('session', {

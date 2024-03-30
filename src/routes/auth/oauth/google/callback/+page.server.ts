@@ -1,8 +1,8 @@
-import { redirect } from '@sveltejs/kit';
-import { getUserByEmail, createUser } from '$lib/server/database/user-model.js';
-import { googleOauth, lucia } from '$lib/server/auth';
-import { OAuth2RequestError } from 'arctic';
 import { sendVerificationEmail } from '$lib/config/email-messages';
+import { googleOauth, lucia } from '$lib/server/auth';
+import { createUser, getUserByEmail } from '$lib/server/database/user-model.js';
+import { redirect } from '@sveltejs/kit';
+import { OAuth2RequestError } from 'arctic';
 import { setFlash } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from '../../google/callback/$types';
 
@@ -52,7 +52,7 @@ export const load: PageServerLoad = async (event) => {
 			const token = crypto.randomUUID();
 			const id = crypto.randomUUID();
 			const newGoogleUser = {
-				id: id,
+				id: String(id),
 				provider: 'google',
 				providerId: googleUser.sub,
 				email: googleUser.email.toLowerCase(),
@@ -61,7 +61,7 @@ export const load: PageServerLoad = async (event) => {
 				role: 'USER',
 				verified: false,
 				receiveEmail: true,
-				token: token
+				token: String(token)
 			};
 			const newUser = await createUser(newGoogleUser);
 			if (newUser) {
