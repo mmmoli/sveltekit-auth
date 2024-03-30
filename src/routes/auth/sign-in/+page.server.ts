@@ -6,6 +6,7 @@ import { Argon2id } from 'oslo/password';
 import { userSchema } from '$lib/config/zod-schemas';
 import { getUserByEmail } from '$lib/server/database/user-model';
 import type { PageServerLoad, Actions } from '../sign-in/$types';
+import { route } from '~shared/config/routes';
 
 const signInSchema = userSchema.pick({
 	email: true,
@@ -13,9 +14,7 @@ const signInSchema = userSchema.pick({
 });
 
 export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) {
-		redirect(302, '/dashboard');
-	}
+	if (event.locals.user) redirect(302, route('dashboard'));
 	const form = await superValidate(event, signInSchema);
 	return {
 		form

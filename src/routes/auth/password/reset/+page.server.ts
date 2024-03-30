@@ -4,6 +4,7 @@ import { userSchema } from '$lib/config/zod-schemas';
 import { sendPasswordResetEmail } from '$lib/config/email-messages';
 import { getUserByEmail, updateUser } from '$lib/server/database/user-model.js';
 import type { PageServerLoad, Actions } from '../../password/reset/$types';
+import { route } from '~shared/config/routes';
 
 const resetPasswordSchema = userSchema.pick({ email: true });
 
@@ -18,11 +19,10 @@ export const actions: Actions = {
 	default: async (event) => {
 		const form = await superValidate(event, resetPasswordSchema);
 
-		if (!form.valid) {
+		if (!form.valid)
 			return fail(400, {
 				form
 			});
-		}
 
 		try {
 			const user = await getUserByEmail(form.data.email);
@@ -40,6 +40,6 @@ export const actions: Actions = {
 				'The was a problem resetting your password. Please contact support if you need further help.'
 			);
 		}
-		redirect(302, '/auth/password/reset/success');
+		redirect(302, route('auth_password_reset_success'));
 	}
 };

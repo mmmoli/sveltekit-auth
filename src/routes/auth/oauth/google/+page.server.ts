@@ -2,11 +2,10 @@ import { redirect } from '@sveltejs/kit';
 import { generateState, generateCodeVerifier } from 'arctic';
 import { googleOauth } from '$lib/server/auth';
 import type { PageServerLoad } from '../../oauth/google/$types';
+import { route } from '~shared/config/routes';
 
 export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) {
-		redirect(302, '/dashboard');
-	}
+	if (event.locals.user) redirect(302, route('dashboard'));
 
 	const state = generateState();
 	const codeVerifier = generateCodeVerifier();

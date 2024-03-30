@@ -1,6 +1,7 @@
 import { lucia } from '$lib/server/auth';
 import { redirect, type Handle } from '@sveltejs/kit';
 import type { HandleServerError } from '@sveltejs/kit';
+import { route } from '~shared/config/routes';
 
 import { log } from '$lib/server/log';
 
@@ -50,12 +51,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.user = user;
 	event.locals.session = session;
 
+	const signInRoute = route('auth_sign_in');
 	if (event.route.id?.startsWith('/(protected)')) {
-		if (!user) redirect(302, '/auth/sign-in');
-		if (!user.verified) redirect(302, '/auth/verify/email');
+		if (!user) redirect(302, signInRoute);
+		if (!user.verified) redirect(302, route('auth_verify_email'));
 	}
 	if (event.route.id?.startsWith('/(admin)')) {
-		if (user?.role !== 'ADMIN') redirect(302, '/auth/sign-in');
+		if (user?.role !== 'ADMIN') redirect(302, signInRoute);
 	}
 
 	const response = await resolve(event);

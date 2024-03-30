@@ -5,6 +5,7 @@ import { redirect } from '@sveltejs/kit';
 import { OAuth2RequestError } from 'arctic';
 import { setFlash } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from '../../google/callback/$types';
+import { route } from '~shared/config/routes';
 
 type GoogleUser = {
 	sub: string;
@@ -18,9 +19,7 @@ type GoogleUser = {
 };
 
 export const load: PageServerLoad = async (event) => {
-	if (event.locals.user) {
-		redirect(302, '/dashboard');
-	}
+	if (event.locals.user) redirect(302, route('dashboard'));
 	const code = event.url.searchParams.get('code');
 	const state = event.url.searchParams.get('state');
 	const storedState = event.cookies.get('google_state') ?? null;
@@ -81,7 +80,7 @@ export const load: PageServerLoad = async (event) => {
 				);
 			}
 		}
-		return redirect(302, '/dashboard');
+		return redirect(302, route('dashboard'));
 	} catch (e) {
 		if (e instanceof OAuth2RequestError && e.message === 'bad_verification_code') {
 			// invalid code

@@ -4,6 +4,7 @@ import { userUpdatePasswordSchema } from '$lib/config/zod-schemas';
 import { getUserByToken, updateUser } from '$lib/server/database/user-model.js';
 import { Argon2id } from 'oslo/password';
 import type { PageServerLoad, Actions } from '../../password/update-[token]/$types';
+import { route } from '~shared/config/routes';
 
 export const load: PageServerLoad = async (event) => {
 	const form = await superValidate(event, userUpdatePasswordSchema);
@@ -49,7 +50,11 @@ export const actions: Actions = {
 			);
 		}
 		const token = event.params.token as string;
-		redirect(302, `/auth/password/update-${token}/success`);
-		//		return { form };
+		redirect(
+			302,
+			route('auth_password_update_token_success', {
+				token
+			})
+		);
 	}
 };

@@ -1,13 +1,13 @@
 import { redirect } from 'sveltekit-flash-message/server';
 import { lucia } from '$lib/server/auth';
-import type { PageServerLoad, Actions } from '../sign-up/$types';
+import type { Actions } from '../sign-up/$types';
+import { route } from '~shared/config/routes';
 
-export const load: PageServerLoad = async () => {
-	// ...
-};
+const signInRoute = route('auth_sign_in');
+
 export const actions: Actions = {
 	default: async (event) => {
-		if (!event.locals.user) redirect(302, '/auth/sign-in');
+		if (!event.locals.user) redirect(302, signInRoute);
 		if (event.locals.session) {
 			await lucia.invalidateSession(event.locals.session.id);
 			const sessionCookie = lucia.createBlankSessionCookie();
@@ -16,9 +16,9 @@ export const actions: Actions = {
 				...sessionCookie.attributes
 			});
 			const message = { type: 'success', message: 'Logged out' } as const;
-			redirect(302, '/auth/sign-in', message, event.cookies);
+			redirect(302, signInRoute, message, event.cookies);
 		}
-		redirect(302, '/auth/sign-in');
+		redirect(302, signInRoute);
 	}
 };
 
