@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Button } from '~ui/button';
 	import * as DropdownMenu from '~ui/dropdown-menu';
-	import * as Command from '~ui/command';
 	import * as Avatar from '~ui/avatar';
 	import { Sun, Moon, SunMoon, UserRound, LogOut } from 'lucide-svelte';
 	import { setMode, resetMode } from 'mode-watcher';
