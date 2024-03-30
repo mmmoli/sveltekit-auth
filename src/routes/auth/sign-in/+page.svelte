@@ -1,12 +1,13 @@
 <script lang="ts">
 	import * as Form from '~ui/form';
 	import * as Card from '~ui/card';
-
 	import * as Alert from '~ui/alert';
 	import { userSchema } from '$lib/config/zod-schemas';
 	import type { SuperValidated } from 'sveltekit-superforms';
 	import { Loader2 } from 'lucide-svelte';
 	import { AlertCircle } from 'lucide-svelte';
+	import { route } from '~shared/config/routes';
+	import { SigninGoogleButton } from '~features/auth/sign-in-google-button';
 
 	const signInSchema = userSchema.pick({
 		email: true,
@@ -24,7 +25,8 @@
 			<Card.Header class="space-y-1">
 				<Card.Title class="text-2xl">Sign in</Card.Title>
 				<Card.Description
-					>Don't have an account yet? <a href="/auth/sign-up" class="underline">Sign up here.</a
+					>Don't have an account yet? <a href={route('auth_sign_up')} class="underline"
+						>Sign up here.</a
 					></Card.Description
 				>
 			</Card.Header>
@@ -63,8 +65,10 @@
 							Please wait{:else}Sign In{/if}
 					</Form.Button>
 
+					<SigninGoogleButton />
+
 					<div class="mt-6 text-center text-sm">
-						<a href="/auth/password/reset" class="underline">Forgot your password?</a>
+						<a href={route('auth_password_reset')} class="underline">Forgot your password?</a>
 					</div>
 				</div>
 			</Card.Footer>

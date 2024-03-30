@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import * as Form from '~ui/form';
 	import * as Card from '~ui/card';
-
+	import { route } from '~shared/config/routes';
 	import * as Alert from '~ui/alert';
 	import { userSchema } from '$lib/config/zod-schemas';
 	import type { SuperValidated } from 'sveltekit-superforms';
 	import { Loader2 } from 'lucide-svelte';
 	import { AlertCircle } from 'lucide-svelte';
-	import { Button } from '~ui/button';
+	import { SigninGoogleButton } from '~features/auth/sign-in-google-button';
+
 	const signUpSchema = userSchema.pick({
 		firstName: true,
 		lastName: true,
@@ -22,14 +22,14 @@
 	export let form: SuperValidated<SignUpSchema>;
 </script>
 
-<!--<Button on:click={() => goto('/auth/oauth/google')}>Sign up with Google</Button>-->
 <div class="flex items-center justify-center mx-auto max-w-2xl">
 	<Form.Root let:submitting let:errors method="POST" {form} schema={signUpSchema} let:config>
 		<Card.Root>
 			<Card.Header class="space-y-1">
 				<Card.Title class="text-2xl">Create an account</Card.Title>
 				<Card.Description
-					>Already have an account? <a href="/auth/sign-in" class="underline">Sign in here.</a
+					>Already have an account? <a href={route('auth_sign_in')} class="underline"
+						>Sign in here.</a
 					></Card.Description
 				>
 			</Card.Header>
@@ -92,6 +92,7 @@
 						<Loader2 class="mr-2 h-4 w-4 animate-spin" />
 						Please wait{:else}Sign Up{/if}
 				</Form.Button>
+				<SigninGoogleButton />
 			</Card.Footer>
 		</Card.Root>
 	</Form.Root>
