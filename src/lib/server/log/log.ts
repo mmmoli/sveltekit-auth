@@ -29,7 +29,7 @@ export async function log(statusCode: number, event) {
 
 		let referer = event.request.headers.get('referer');
 		if (referer) {
-			const refererUrl = await new URL(referer);
+			const refererUrl = new URL(referer);
 			const refererHostname = refererUrl.hostname;
 			if (refererHostname === 'localhost' || refererHostname === DOMAIN) {
 				referer = refererUrl.pathname;
