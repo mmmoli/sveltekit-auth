@@ -1,13 +1,13 @@
 import { FROM_EMAIL, RESEND_API_KEY } from '$env/static/private';
-import type { EmailService, SendOptions, SendResponse } from '../email-types';
+import type { EmailSendingProvider, SendEmailParams, SendResponse } from '../email-types';
 import { Resend } from 'resend';
 
-export class ResendEmailProvider implements EmailService {
+export class ResendEmailProvider implements EmailSendingProvider {
 	protected readonly resend: Resend;
 	constructor() {
 		this.resend = new Resend(RESEND_API_KEY);
 	}
-	async send(options: SendOptions): Promise<SendResponse> {
+	async send(options: SendEmailParams): Promise<SendResponse> {
 		try {
 			await this.resend.emails.send({ from: options.from ?? FROM_EMAIL, ...options });
 		} catch (err) {

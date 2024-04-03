@@ -1,8 +1,8 @@
 import { FROM_EMAIL } from '$env/static/private';
-import type { EmailService, SendOptions, SendResponse } from '../email-types';
+import type { EmailSendingProvider, SendEmailParams, SendResponse } from '../email-types';
 import { SMTPClient } from 'emailjs';
 
-export class LocalEmailProvider implements EmailService {
+export class LocalEmailProvider implements EmailSendingProvider {
 	protected readonly client: SMTPClient;
 
 	constructor() {
@@ -12,7 +12,8 @@ export class LocalEmailProvider implements EmailService {
 			ssl: false
 		});
 	}
-	async send(options: SendOptions): Promise<SendResponse> {
+
+	async send(options: SendEmailParams): Promise<SendResponse> {
 		try {
 			await this.client.sendAsync({
 				from: options.from ?? FROM_EMAIL,

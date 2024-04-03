@@ -3,12 +3,12 @@ import { setFlash } from 'sveltekit-flash-message/server';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/server/auth';
-import { createUser } from '$lib/server/database/user-model';
 import type { PageServerLoad, Actions } from '../sign-up/$types';
 import { route } from '~shared/config/routes';
 
 import { userSchema } from '$lib/config/zod-schemas';
 import { sendVerificationEmail } from '$lib/config/email-messages';
+import { registerUserCommand } from '$lib/server/commands/auth/register-user';
 
 const signUpSchema = userSchema.pick({
 	firstName: true,
@@ -54,8 +54,10 @@ export const actions: Actions = {
 				createdAt: new Date(),
 				updatedAt: new Date()
 			};
-			const newUser = await createUser(user);
+			// Don't do this here. Call Command instead
+			const newUser = await registerUserCommand(user);
 			if (newUser) {
+				// Not handled here.
 				await sendVerificationEmail(newUser.email, token);
 				const session = await lucia.createSession(newUser.id, {});
 				const sessionCookie = lucia.createSessionCookie(session.id);

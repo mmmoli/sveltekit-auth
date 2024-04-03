@@ -1,1 +1,1 @@
-export * from './email-verification';
+export { default as Welcome } from './welcome.svelte';

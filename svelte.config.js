@@ -18,7 +18,9 @@ const config = {
 			'~widgets/*': './src/lib/widgets/*',
 			'~features/*': './src/lib/features/*',
 			'~entities/*': './src/lib/entities/*',
-			'~shared/*': './src/lib/shared/*'
+			'~shared/*': './src/lib/shared/*',
+			'~email': './src/lib/server/email/index',
+			'~emails/*': './src/lib/server/email/templates/*'
 		}
 	}
 };

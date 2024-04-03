@@ -1,11 +1,12 @@
 import { sendVerificationEmail } from '$lib/config/email-messages';
 import { googleOauth, lucia } from '$lib/server/auth';
-import { createUser, getUserByEmail } from '$lib/server/database/user-model.js';
+import { getUserByEmail } from '$lib/server/database/user-model.js';
 import { redirect } from '@sveltejs/kit';
 import { OAuth2RequestError } from 'arctic';
 import { setFlash } from 'sveltekit-flash-message/server';
 import type { PageServerLoad } from '../../google/callback/$types';
 import { route } from '~shared/config/routes';
+import { registerUserCommand } from '$lib/server/commands/auth/register-user';
 
 type GoogleUser = {
 	sub: string;
@@ -62,8 +63,9 @@ export const load: PageServerLoad = async (event) => {
 				receiveEmail: true,
 				token: String(token)
 			};
-			const newUser = await createUser(newGoogleUser);
+			const newUser = await registerUserCommand(newGoogleUser);
 			if (newUser) {
+				// Not handled here.
 				await sendVerificationEmail(newUser.email, token);
 				const session = await lucia.createSession(newUser.id, {});
 				const sessionCookie = lucia.createSessionCookie(session.id);
