@@ -8,24 +8,16 @@
 	import { Logo } from '~ui/logo';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { signOut } from '@auth/sveltekit/client';
 	import convertNameToInitials from '$lib/_helpers/convertNameToInitials';
 
-	export let user: any;
+	$: user = $page.data.session?.user;
 	$: currentPage = $page.url.pathname;
-
-	function signOut() {
-		// Create a form element
-		var form = document.createElement('form');
-		form.method = 'POST';
-		form.action = '/auth/sign-out';
-		document.body.appendChild(form);
-		form.submit();
-	}
 
 	let initials: string = '';
 	$: {
 		if (user) {
-			initials = convertNameToInitials(user.firstName, user.lastName);
+			initials = convertNameToInitials(String(user.name));
 		}
 	}
 </script>
@@ -119,7 +111,7 @@
 								</DropdownMenu.SubContent>
 							</DropdownMenu.Sub>
 							<DropdownMenu.Separator />
-							<DropdownMenu.Item on:click={signOut}>
+							<DropdownMenu.Item on:click={() => signOut()}>
 								<LogOut class="mr-2 h-4 w-4" />
 								Sign out
 								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>

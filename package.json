@@ -49,6 +49,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth/drizzle-adapter": "^0.8.2",
+		"@auth/sveltekit": "^0.14.2",
 		"@aws-sdk/client-ses": "^3.470.0",
 		"@axiomhq/js": "^1.0.0-rc.1",
 		"@internationalized/date": "^3.5.0",
