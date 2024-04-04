@@ -9,6 +9,9 @@ export const users = sqliteTable('user', {
 	image: text('image')
 });
 
+export type User = typeof users.$inferInsert;
+export type UpdateUser = Partial<typeof users.$inferInsert>;
+
 export const accounts = sqliteTable(
 	'account',
 	{
@@ -40,6 +43,8 @@ export const sessions = sqliteTable('session', {
 		.references(() => users.id, { onDelete: 'cascade' }),
 	expires: integer('expires', { mode: 'timestamp_ms' }).notNull()
 });
+
+export type Session = typeof sessions.$inferInsert;
 
 export const verificationTokens = sqliteTable(
 	'verificationToken',

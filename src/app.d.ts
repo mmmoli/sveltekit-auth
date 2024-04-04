@@ -1,6 +1,7 @@
 declare global {
 	namespace App {
 		interface Locals {
+			session: import('@auth/sveltekit').Session;
 			startTimer: number;
 			error: string;
 			errorId: string;

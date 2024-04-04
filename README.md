@@ -2,15 +2,13 @@
 
 ![Sveltekit Auth User Interface](https://github.com/delay/sveltekit-auth/assets/638246/3fbb5318-cf46-40ab-a33b-9660019beec8)
 
-This is a Sveltekit Auth Project. An example website is currently deployed [here](https://sveltekit-auth-alpha.vercel.app). It is an open source auth starter project utilizing [Lucia](https://lucia-auth.com/) for authentication, [shadcn-svelte](https://www.shadcn-svelte.com/) for ui elements, [Lucide](https://lucide.dev) for icons, [Drizzle](https://orm.drizzle.team/) for database connectivity and type safety and [Sveltekit](https://kit.svelte.dev) for the javascript framework. I also used [Zod](https://zod.dev) and [Superforms](https://superforms.vercel.app) to handle form validation and management. It has email verification, password reset, and will send an email if the user changes their email address to re-verify it. It is released as open source under an MIT license.
+This is a Sveltekit Auth Project. An example website is currently deployed [here](https://sveltekit-auth-alpha.vercel.app). It is an open source auth starter project utilizing [Authjs](https://authjs.dev/) for authentication, [shadcn-svelte](https://www.shadcn-svelte.com/) for ui elements, [Lucide](https://lucide.dev) for icons, [Drizzle](https://orm.drizzle.team/) for database connectivity and type safety and [Sveltekit](https://kit.svelte.dev) for the javascript framework. I also used [Zod](https://zod.dev) and [Superforms](https://superforms.vercel.app) to handle form validation and management. It has email verification, password reset, and will send an email if the user changes their email address to re-verify it. It is released as open source under an MIT license.
 
 While creating this project, I made use of several great videos and tutorials from [Huntabyte](https://www.youtube.com/@huntabyte) (who also developed the svelte port for shadcn) and [Joy of Code](https://www.youtube.com/@JoyofCodeDev). Both have great tutorials for all things related to Sveltekit.
 
 This project creates an email and password user log in system and is my attempt to make something production ready with all of the usual features you expect. You can create new users and sign them in. It has user roles. It will verify a users email address. You can edit your profile including changing your email address and password. You can reset your password in case you forgot it. You can also change themes and have a light and dark mode. I didn’t see any examples utilizing these frameworks that had all of these necessary features.
 
 It has a logging system for errors which I have tracked in Axiom. I wrote a separate article about the logging system [here](https://jeffmcmorris.medium.com/awesome-logging-in-sveltekit-6afa29c5892c).
-
-I picked [Lucia](https://lucia-auth.com/) for auth because it had great documentation and seemed to be in active development and was very full featured. It can provide authentication for OAuth providers as well. I always want to have a fallback for email and password, so that is what I chose to make for this project. I also provide a google oauth login example. Depending on your hosting you may need to add a polyfill for crypto. See more [here](https://arctic.js.org/).
 
 [shadcn-svelte](https://www.shadcn-svelte.com/) is another great project with a really nice development experience. It has beautiful ui elements that are very easy to use.
 
@@ -60,8 +58,6 @@ This was the first time working with many of these packages, but they really do 
 ## /server
 
 **email-send.ts** — this handles our email sending with AWS SES. It only runs server side to keep your credentials hidden.
-
-**lucia.ts**\- this initializes the lucia-auth package for handling our auth functions. It also holds the extra custom fields we added to the user.
 
 **log.ts**\- special log routine to provide debug info about our app.
 

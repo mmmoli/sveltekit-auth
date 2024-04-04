@@ -10,6 +10,7 @@ import {
 	GITHUB_CLIENT_ID,
 	GITHUB_CLIENT_SECRET
 } from '$env/static/private';
+import { route } from '~shared/config/routes';
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: [
@@ -17,9 +18,9 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 		Github({ clientId: GITHUB_CLIENT_ID, clientSecret: GITHUB_CLIENT_SECRET })
 	],
 	pages: {
-		signIn: '/auth/sign-in',
-		signOut: '/auth/sign-out'
-		// verifyRequest: '/auth/verify'
+		signIn: route('auth_sign_in'),
+		signOut: route('auth_sign_out'),
+		verifyRequest: route('auth_verify_email')
 	},
 	adapter: DrizzleAdapter(db)
 });

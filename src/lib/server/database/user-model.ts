@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm';
 import { db } from './db';
-import { userTable, type User, type UpdateUser } from './schemas';
+import { users, type User, type UpdateUser } from './schemas';
 
 export const getUserByEmail = async (email: string) => {
-	const user = await db.select().from(userTable).where(eq(userTable.email, email));
+	const user = await db.select().from(users).where(eq(users.email, email));
 	if (user.length === 0) {
 		return null;
 	} else {
@@ -12,16 +12,16 @@ export const getUserByEmail = async (email: string) => {
 };
 
 export const getUserByToken = async (token: string) => {
-	const user = await db.select().from(userTable).where(eq(userTable.token, token));
-	if (user.length === 0) {
-		return null;
-	} else {
-		return user[0];
-	}
+	// const user = await db.select().from(users).where(eq(users.token, token));
+	// if (user.length === 0) {
+	return null;
+	// } else {
+	// 	return user[0];
+	// }
 };
 
 export const updateUser = async (id: string, user: UpdateUser) => {
-	const result = await db.update(userTable).set(user).where(eq(userTable.id, id)).returning();
+	const result = await db.update(users).set(user).where(eq(users.id, id)).returning();
 	if (result.length === 0) {
 		return null;
 	} else {
@@ -30,7 +30,7 @@ export const updateUser = async (id: string, user: UpdateUser) => {
 };
 
 export const createUser = async (user: User) => {
-	const result = await db.insert(userTable).values(user).onConflictDoNothing().returning();
+	const result = await db.insert(users).values(user).onConflictDoNothing().returning();
 	if (result.length === 0) {
 		return null;
 	} else {

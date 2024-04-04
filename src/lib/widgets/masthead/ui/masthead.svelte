@@ -6,10 +6,10 @@
 	import { setMode, resetMode } from 'mode-watcher';
 	import { APP_NAME } from '$lib/config/constants';
 	import { Logo } from '~ui/logo';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { signOut } from '@auth/sveltekit/client';
 	import convertNameToInitials from '$lib/_helpers/convertNameToInitials';
+	import { route } from '~shared/config/routes';
 
 	$: user = $page.data.session?.user;
 	$: currentPage = $page.url.pathname;
@@ -44,7 +44,7 @@
 		<div class="flex flex-1 items-center justify-end space-x-4">
 			<nav class="flex items-center space-x-1">
 				{#if !user}
-					<Button on:click={() => goto('/auth/sign-in')}>Sign in</Button>
+					<Button href={route('auth_sign_in')}>Sign in</Button>
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild let:builder>
 							<Button builders={[builder]} variant="ghost" size="icon">
@@ -75,16 +75,15 @@
 						<DropdownMenu.Content class="w-56" align="end">
 							<DropdownMenu.Label class="font-normal">
 								<div class="flex flex-col space-y-1">
-									<p class="text-sm font-medium leading-none">{user?.firstName} {user?.lastName}</p>
+									<p class="text-sm font-medium leading-none">{user?.name}</p>
 									<p class="text-xs leading-none text-muted-foreground">{user?.email}</p>
 								</div>
 							</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Group>
-								<DropdownMenu.Item on:click={() => goto('/profile')}>
+								<DropdownMenu.Item href={route('profile')}>
 									<UserRound class="mr-2 h-4 w-4" />
 									Profile
-									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
 							</DropdownMenu.Group>
 
@@ -114,7 +113,6 @@
 							<DropdownMenu.Item on:click={() => signOut()}>
 								<LogOut class="mr-2 h-4 w-4" />
 								Sign out
-								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
 							</DropdownMenu.Item>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>

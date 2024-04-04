@@ -14,19 +14,8 @@ const PAGES = {
   "terms": `/terms`,
   "dashboard": `/dashboard`,
   "profile": `/profile`,
-  "auth_oauth_google": `/auth/oauth/google`,
-  "auth_oauth_google_callback": `/auth/oauth/google/callback`,
-  "auth_password_reset": `/auth/password/reset`,
-  "auth_password_reset_success": `/auth/password/reset/success`,
-  "auth_password_update_token": (params: { token: (string | number) }) => {
-    return `/auth/password/update-${params.token}`
-  },
-  "auth_password_update_token_success": (params: { token: (string | number) }) => {
-    return `/auth/password/update-${params.token}/success`
-  },
   "auth_sign_in": `/auth/sign-in`,
   "auth_sign_out": `/auth/sign-out`,
-  "auth_sign_up": `/auth/sign-up`,
   "auth_verify_email": `/auth/verify/email`,
   "auth_verify_email_token": (params: { token: (string | number) }) => {
     return `/auth/verify/email-${params.token}`
@@ -47,14 +36,8 @@ const SERVERS = {
  * ACTIONS
  */
 const ACTIONS = {
-  "default profile": `/profile`,
-  "default auth_password_reset": `/auth/password/reset`,
-  "default auth_password_update_token": (params: { token: (string | number) }) => {
-    return `/auth/password/update-${params.token}`
-  },
   "default auth_sign_in": `/auth/sign-in`,
-  "default auth_sign_out": `/auth/sign-out`,
-  "default auth_sign_up": `/auth/sign-up`
+  "default auth_sign_out": `/auth/sign-out`
 }
 
 /**
@@ -164,9 +147,9 @@ export function route<T extends keyof AllTypes>(key: T, ...params: any[]): strin
 * ```
 */
 export type KIT_ROUTES = {
-  PAGES: { '_ROOT': never, 'privacy': never, 'terms': never, 'dashboard': never, 'profile': never, 'auth_oauth_google': never, 'auth_oauth_google_callback': never, 'auth_password_reset': never, 'auth_password_reset_success': never, 'auth_password_update_token': 'token', 'auth_password_update_token_success': 'token', 'auth_sign_in': never, 'auth_sign_out': never, 'auth_sign_up': never, 'auth_verify_email': never, 'auth_verify_email_token': 'token', 'auth_verify_resend_email_email': 'email' }
+  PAGES: { '_ROOT': never, 'privacy': never, 'terms': never, 'dashboard': never, 'profile': never, 'auth_sign_in': never, 'auth_sign_out': never, 'auth_verify_email': never, 'auth_verify_email_token': 'token', 'auth_verify_resend_email_email': 'email' }
   SERVERS: Record<string, never>
-  ACTIONS: { 'default profile': never, 'default auth_password_reset': never, 'default auth_password_update_token': 'token', 'default auth_sign_in': never, 'default auth_sign_out': never, 'default auth_sign_up': never }
+  ACTIONS: { 'default auth_sign_in': never, 'default auth_sign_out': never }
   LINKS: Record<string, never>
   Params: { token: never, email: never }
 }
